@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="690.0" prefWidth="1114.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.ComplainsFormController">
+   <children>
+      <Label layoutX="10.0" layoutY="6.0" prefHeight="37.0" prefWidth="208.0" text="Manage Complains">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="637.0" prefWidth="1104.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
+         <children>
+            <TextArea fx:id="txtComplain" layoutX="6.0" layoutY="130.0" prefHeight="150.0" prefWidth="845.0" promptText="Your Complain">
+               <font>
+                  <Font size="18.0" />
+               </font></TextArea>
+            <Label layoutX="22.0" layoutY="44.0" text="Complain Id :">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="304.0" layoutY="44.0" text="Customer Id :">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="747.0" layoutY="42.0" prefHeight="36.0" prefWidth="208.0" text="Customer Name :">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="cmbCustomerId" layoutX="469.0" layoutY="37.0" onAction="#cmbCustomerIdOnAction" prefHeight="40.0" prefWidth="254.0" />
+            <Label fx:id="lblComplainsid" layoutX="182.0" layoutY="52.0" text="Label">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblCustName" layoutX="955.0" layoutY="48.0" prefHeight="30.0" prefWidth="143.0" text="Label">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="979.0" layoutY="185.0" onAction="#btnUpdateComplainOnAction" prefHeight="40.0" prefWidth="111.0" style="-fx-background-radius: 10; -fx-background-color: #fcec0d;" text="Update">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="26.0" fitWidth="21.0" layoutX="982.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/updateIcon.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="979.0" layoutY="237.0" onAction="#btnDeleteComplainOnAction" prefHeight="40.0" prefWidth="111.0" style="-fx-background-radius: 10; -fx-background-color: #fc1d0d;" text="Delete" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="984.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/deleteIcon.png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="861.0" layoutY="185.0" onAction="#btnSaveComplainOnAction" prefHeight="40.0" prefWidth="111.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="869.0" layoutY="194.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/saveIcon.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="btnClear" layoutX="861.0" layoutY="241.0" onAction="#btnClearOnAction" prefHeight="35.0" prefWidth="111.0" style="-fx-background-radius: 10; -fx-background-color: #6c5ce7;" text="Clear" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="869.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/icons8-clear-48.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tblComplains" layoutX="6.0" layoutY="338.0" prefHeight="346.0" prefWidth="1104.0" style="-fx-background-radius: 10;">
+         <columns>
+            <TableColumn fx:id="colComplainId" prefWidth="172.0" text="Complain Id" />
+            <TableColumn fx:id="colCustomerId" minWidth="0.0" prefWidth="192.0" text="Customer Id" />
+            <TableColumn fx:id="colCustomerName" prefWidth="265.0" text="Customer Name" />
+            <TableColumn fx:id="colDescription" prefWidth="474.0" text="Description" />
+         </columns>
+      </TableView>
+      <TextField fx:id="txtSearchComplain" layoutX="854.0" layoutY="6.0" onAction="#txtSearchComplainOnAction" prefHeight="37.0" prefWidth="244.0" promptText="C001" style="-fx-background-radius: 15;" />
+      <Label layoutX="684.0" layoutY="10.0" text="Search Complain :">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

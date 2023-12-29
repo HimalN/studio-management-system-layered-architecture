@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootHome" prefHeight="690.0" prefWidth="1114.0" style="-fx-background-color: #ededed; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.shadowStudio.controller.EmployeeFormController">
+   <children>
+      <Label layoutX="12.0" layoutY="3.0" prefHeight="46.0" prefWidth="283.0" text="Manage Employee">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="6.0" layoutY="48.0" prefHeight="637.0" prefWidth="1103.0" style="-fx-background-color: #b2bec3; -fx-background-radius: 8;">
+         <children>
+            <Label layoutX="56.0" layoutY="15.0" text="Employee Id :">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtEmployeeNic" layoutX="730.0" layoutY="18.0" onAction="#txtEmployeeNicOnAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtEmployeeName" layoutX="400.0" layoutY="18.0" onAction="#txtEmployeeNameOnAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtEmployeeTp" layoutX="729.0" layoutY="80.0" onAction="#txtTelephoneOnAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 15;" />
+            <TextField fx:id="txtEmlployeeAddress" layoutX="402.0" layoutY="81.0" onAction="#txtEmployeeAddressOnAction" prefHeight="40.0" prefWidth="260.0" style="-fx-background-radius: 15;" />
+            <Label fx:id="lblEmployeeId" layoutX="259.0" layoutY="22.0" prefHeight="36.0" prefWidth="75.0" text="E001">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="405.0" layoutY="2.0" text="Employee Name">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="407.0" layoutY="65.0" text="Address">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="734.0" layoutY="2.0" text="NIC">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="732.0" layoutY="65.0" text="Telephone">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblEmployee" layoutX="-1.0" layoutY="174.0" prefHeight="461.0" prefWidth="1105.0" style="-fx-background-radius: 10;">
+               <columns>
+                  <TableColumn fx:id="colEmployeeId" prefWidth="179.0" text="Employee Id" />
+                  <TableColumn fx:id="colEmployeeName" prefWidth="230.0" text="Name" />
+                  <TableColumn fx:id="colEmployeeNic" prefWidth="204.00001525878906" text="N.I.C" />
+                  <TableColumn fx:id="colEmployeeAddress" prefWidth="290.0" text="Address" />
+                  <TableColumn fx:id="colEmployeeTelephone" prefWidth="202.33331298828125" text="Telephone" />
+               </columns>
+            </TableView>
+            <JFXButton fx:id="btnClear" layoutX="635.0" layoutY="133.0" onAction="#btnClearOnAction" prefHeight="35.0" prefWidth="111.0" style="-fx-background-radius: 10; -fx-background-color: #6c5ce7;" text="Clear" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="643.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/icons8-clear-48.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <Separator layoutX="794.0" layoutY="16.0" orientation="VERTICAL" prefHeight="19.0" prefWidth="6.0" />
+      <JFXButton layoutX="764.0" layoutY="181.0" onAction="#btnDeleteEmployeeOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #fc1d0d;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="880.0" layoutY="180.0" onAction="#btnUpdateEmployeeOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #fcec0d;" text="Update">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="769.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/deleteIcon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="19.0" fitWidth="38.0" layoutX="884.0" layoutY="189.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/updateIcon.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="btnSave" layoutX="993.0" layoutY="180.0" onAction="#btnSaveEmployeeOnAction" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #81ecec;" text="Save">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="1003.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/saveIcon.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtEmlployeeSearch" layoutX="745.0" layoutY="7.0" onAction="#txtEmployeeSearchOnAction" prefHeight="35.0" prefWidth="248.0" promptText="E001" style="-fx-background-radius: 15;" />
+      <Label layoutX="628.0" layoutY="15.0" text="Search Employee :">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

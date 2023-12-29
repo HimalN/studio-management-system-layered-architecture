@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itemReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ceb6e3ef-615f-47a2-adaa-de96c2f641aa">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<queryString language="SQL">
+		<![CDATA[select * from item;]]>
+	</queryString>
+	<field name="itemId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="itemId"/>
+		<property name="com.jaspersoft.studio.field.label" value="itemId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item"/>
+	</field>
+	<field name="itemName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="itemName"/>
+		<property name="com.jaspersoft.studio.field.label" value="itemName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item"/>
+	</field>
+	<field name="itemType" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="itemType"/>
+		<property name="com.jaspersoft.studio.field.label" value="itemType"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item"/>
+	</field>
+	<field name="rentalPrice" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rentalPrice"/>
+		<property name="com.jaspersoft.studio.field.label" value="rentalPrice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item"/>
+	</field>
+	<field name="qty" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="qty"/>
+		<property name="com.jaspersoft.studio.field.label" value="qty"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item"/>
+	</field>
+	<group name="itemId">
+		<groupExpression><![CDATA[$F{itemId}]]></groupExpression>
+	</group>
+	<group name="itemName">
+		<groupExpression><![CDATA[$F{itemName}]]></groupExpression>
+	</group>
+	<group name="itemType">
+		<groupExpression><![CDATA[$F{itemType}]]></groupExpression>
+	</group>
+	<group name="rentalPrice">
+		<groupExpression><![CDATA[$F{rentalPrice}]]></groupExpression>
+	</group>
+	<group name="qty">
+		<groupExpression><![CDATA[$F{qty}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="-19" y="49" width="256" height="30" uuid="ba1a50e6-3838-4d8d-89d6-eeb665a8f4cc"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Shadow Studio & Rent Service]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="-20" y="6" width="180" height="40" forecolor="#030303" backcolor="#030303" uuid="697a597d-032a-4077-8f0e-8bdd2d4aa40d"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="21" y="11" width="89" height="34" forecolor="#FFFFFF" uuid="2d796263-773d-4a0b-b203-18ddd704309c"/>
+				<textElement>
+					<font fontName="Arial Black" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="210" y="40" width="150" height="30" uuid="240b67d9-dbfd-490c-a66c-debf55b0b7e3"/>
+				<textElement>
+					<font fontName="Arial" size="24" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Item Details
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="111" height="30" uuid="a637d25f-82e9-4491-95ea-3c619a350279">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="496ea0ea-d839-4992-b2be-0bae4e5ae457"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[itemId]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="0" width="111" height="30" uuid="05092abd-13b0-469a-9060-2fb989841089">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ada948-ac13-4712-bbcf-23817bb3f0d9"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[itemName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="0" width="111" height="30" uuid="4d4f4ec7-9ea4-4c26-85db-9cbfccb14be3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="67c7c606-24ec-43ca-bccd-5973c4572794"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[itemType]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="0" width="111" height="30" uuid="b9b50ea0-bcd1-4d78-b04a-65d76a8d949b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36bf1a36-4e84-4053-92d5-3760bce3e9b1"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[rentalPrice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="0" width="111" height="30" uuid="075c9a43-76f9-4703-96a9-4b7fae2dcef1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b5c1fe0-43bb-4dfa-8f1b-bfe8a638cbda"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[qty]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="111" height="30" uuid="b9645a43-2c61-4056-b304-d5711ce02d75">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="496ea0ea-d839-4992-b2be-0bae4e5ae457"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{itemId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="111" height="30" uuid="4282c42b-379f-48ce-bf5e-b64281507ca8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3ada948-ac13-4712-bbcf-23817bb3f0d9"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{itemName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="30" uuid="91ddf9d4-8d6c-408b-9bc2-dc00f24a6ea3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="67c7c606-24ec-43ca-bccd-5973c4572794"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{itemType}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="30" uuid="41f0f4a8-5aae-481a-9556-bef1cc0ee4db">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36bf1a36-4e84-4053-92d5-3760bce3e9b1"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{rentalPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="111" height="30" uuid="b55d7fbb-bba0-4522-9485-564448f6cc23">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4b5c1fe0-43bb-4dfa-8f1b-bfe8a638cbda"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="14" width="595" height="40" forecolor="#030303" backcolor="#030303" uuid="e48eee89-cd2d-424b-9efd-0dab44b0f670"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="90" y="19" width="405" height="30" forecolor="#FFFFFF" uuid="82d0e010-ec4f-4575-8410-2fc5f3588f62"/>
+				<textElement>
+					<font fontName="Calibri Light" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Have a nice day! - Shadow Studio & Rent Service]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

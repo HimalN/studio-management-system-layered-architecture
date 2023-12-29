@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bookReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="43044862-45a3-4c32-a877-e5c15ff63019">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Business Adapter 1"/>
+	<queryString language="SQL">
+		<![CDATA[select * from bookings;]]>
+	</queryString>
+	<field name="booking_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="booking_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="booking_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bookings"/>
+	</field>
+	<field name="cust_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cust_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="cust_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bookings"/>
+	</field>
+	<field name="cust_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="cust_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="cust_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bookings"/>
+	</field>
+	<field name="package_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="package_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="package_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bookings"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="Date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bookings"/>
+	</field>
+	<field name="Time" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Time"/>
+		<property name="com.jaspersoft.studio.field.label" value="Time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bookings"/>
+	</field>
+	<field name="location" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="location"/>
+		<property name="com.jaspersoft.studio.field.label" value="location"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bookings"/>
+	</field>
+	<field name="description" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="description"/>
+		<property name="com.jaspersoft.studio.field.label" value="description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bookings"/>
+	</field>
+	<field name="payment" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="payment"/>
+		<property name="com.jaspersoft.studio.field.label" value="payment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bookings"/>
+	</field>
+	<group name="booking_id">
+		<groupExpression><![CDATA[$F{booking_id}]]></groupExpression>
+	</group>
+	<group name="cust_id">
+		<groupExpression><![CDATA[$F{cust_id}]]></groupExpression>
+	</group>
+	<group name="cust_name">
+		<groupExpression><![CDATA[$F{cust_name}]]></groupExpression>
+	</group>
+	<group name="package_name">
+		<groupExpression><![CDATA[$F{package_name}]]></groupExpression>
+	</group>
+	<group name="Date">
+		<groupExpression><![CDATA[$F{Date}]]></groupExpression>
+	</group>
+	<group name="Time">
+		<groupExpression><![CDATA[$F{Time}]]></groupExpression>
+	</group>
+	<group name="location">
+		<groupExpression><![CDATA[$F{location}]]></groupExpression>
+	</group>
+	<group name="description">
+		<groupExpression><![CDATA[$F{description}]]></groupExpression>
+	</group>
+	<group name="payment">
+		<groupExpression><![CDATA[$F{payment}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="-20" y="0" width="180" height="40" forecolor="#030303" backcolor="#030303" uuid="0a13ad21-1f85-4464-9bf1-095a2978a250"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="21" y="6" width="102" height="35" forecolor="#FFFFFF" uuid="eab817f8-d70d-4324-8ce3-462b7a8eff18"/>
+				<textElement>
+					<font fontName="Arial Black" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-17" y="48" width="256" height="30" uuid="4453eeea-09dc-44de-b856-b3342431aae4"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Shadow Studio & Rent Service]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="73" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="189" y="43" width="176" height="30" uuid="6f61d0c3-6355-43c4-a3f6-a145e865d9cb"/>
+				<textElement>
+					<font fontName="Arial" size="24" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Booking Details
+]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="90" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="10" y="48" width="70" height="20" uuid="9ed21319-430c-4767-b213-18e67fb36335">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8840f82a-85ec-4cb7-9c0e-e8df2c3f052f"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="50" width="80" height="20" uuid="e3a18f6a-a6c3-40ea-8787-39e117df30fb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8840f82a-85ec-4cb7-9c0e-e8df2c3f052f"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="50" width="100" height="25" uuid="27ce7890-c156-4a91-9329-d124a041cac2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8840f82a-85ec-4cb7-9c0e-e8df2c3f052f"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Package Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="292" y="50" width="80" height="30" uuid="a726737b-172b-4ff7-afa8-95385916ad03">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60ba86c8-454c-4164-bff3-2148c8cf21dc"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date & Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="45" width="100" height="30" uuid="248d3e8b-1f66-4bf5-a446-c1f6d8e8a50d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3f28c8be-86fc-493f-93f2-996445ca060f"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[location]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="45" width="80" height="30" uuid="e4b68ac5-f305-48c7-b04b-59abbd85a357">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a6ffce3d-1344-48d8-965b-13436377c739"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[payment]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="0" y="0" width="95" height="23" uuid="15b7e579-ef75-4409-a2bf-7c1385b1cbc6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8840f82a-85ec-4cb7-9c0e-e8df2c3f052f"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{booking_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="0" width="92" height="23" uuid="a5057713-5427-46bb-97dd-dc91f8ce1b4b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fef6d63b-7298-4739-bfab-18ef0da93d8a"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cust_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="92" height="23" uuid="c68ad5f0-ad3d-4b03-bcc4-d4305fa2e34c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{package_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="0" width="92" height="23" uuid="68550462-3365-42ac-9fc3-b3d6b1a19a67">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3f28c8be-86fc-493f-93f2-996445ca060f"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="0" width="92" height="23" uuid="aaddd32a-508c-4a26-ab70-92eca101012f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a6ffce3d-1344-48d8-965b-13436377c739"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{payment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="23" uuid="75eeba68-6308-40f5-ad1d-4b775c9dbbb6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f22e76ab-73da-40cf-b184-d920cb20af60"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="5" width="595" height="40" forecolor="#030303" backcolor="#030303" uuid="09fb6295-24dd-47cd-92a3-93973d33cd88"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="95" y="14" width="405" height="30" forecolor="#FFFFFF" uuid="893f1b5e-2676-423f-ab55-efc0d54ba15e"/>
+				<textElement>
+					<font fontName="Calibri Light" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Have a nice day! - Shadow Studio & Rent Service]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
