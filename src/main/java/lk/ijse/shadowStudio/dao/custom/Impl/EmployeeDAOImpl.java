@@ -35,9 +35,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public String splitId(String currentId) throws SQLException {
         if(currentId != null) {
-            String[] split = currentId.split("[COM]");
+            String[] split = currentId.split("[E]");
 
-            int id = Integer.parseInt(split[3]); //01
+            int id = Integer.parseInt(split[1]); //01
             id++;
             return String.format("E%03d",id);
         } else {

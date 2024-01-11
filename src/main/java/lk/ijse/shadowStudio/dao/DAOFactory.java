@@ -23,9 +23,9 @@ public class DAOFactory {
                 return new ComplainsDAOImpl();
             case CUSTOMER:
                 return new CustomerDAOImpl();
-            /*case EMPLOYEE:
+            case EMPLOYEE:
                 return new EmployeeDAOImpl();
-            case RENTITEMS:
+            /*case RENTITEMS:
                 return new RentItemDAOImpl();
 *//*            case QUERY:
                 return new JoinQueryDAOImpl();*//*
