@@ -8,7 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.shadowStudio.BO.BOFactory;
+import lk.ijse.shadowStudio.BO.custom.CustomerBO;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
+import lk.ijse.shadowStudio.dao.DAOFactory;
+import lk.ijse.shadowStudio.dao.custom.CustomerDAO;
+import lk.ijse.shadowStudio.dao.custom.Impl.CustomerDAOImpl;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.tm.CustomerTm;
 import lk.ijse.shadowStudio.model.CustomerModel;
@@ -69,10 +74,10 @@ public class CustomerFormController {
     @FXML
     private JFXButton btnClear;
 
-    private final CustomerModel customerModel = new CustomerModel();
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
 
-    public void initialize() {
+    public void initialize() throws ClassNotFoundException {
         generateNextCustomerId();
         setCellValueFactory();
         loadAllCustomer();
@@ -145,7 +150,7 @@ public class CustomerFormController {
     }
 
     @FXML
-    void btnSaveCustomerOnAction(ActionEvent event) {
+    void btnSaveCustomerOnAction(ActionEvent event) throws ClassNotFoundException {
         String custId = lblcustId.getText();
         String custName = txtCustomerName.getText();
         String custAddress = txtCustomerAddress.getText();
@@ -174,7 +179,7 @@ public class CustomerFormController {
             var dto = new CustomerDto(custId, custName, custAddress, custNic, custTp,email);
 
             try {
-                boolean isSaved = CustomerModel.saveCustomer(dto);
+                boolean isSaved = customerBO.saveCustomer(dto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Customer Savd").show();
                     loadAllCustomer();
@@ -190,9 +195,9 @@ public class CustomerFormController {
         }
     }
 
-    private void generateNextCustomerId() {
+    private void generateNextCustomerId() throws ClassNotFoundException {
         try {
-            String custId = CustomerModel.generateNextCustomerId();
+            String custId = customerBO.generateNextCustomerID();
             lblcustId.setText(custId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -200,7 +205,7 @@ public class CustomerFormController {
     }
 
     @FXML
-    void btnUpdateCustomerOnAction(ActionEvent event) {
+    void btnUpdateCustomerOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = lblcustId.getText();
         String name = txtCustomerName.getText();
         String address = txtCustomerAddress.getText();
@@ -227,7 +232,7 @@ public class CustomerFormController {
         }else {
             var dto = new CustomerDto(id, name, address, nic, tp,email);
             try {
-                boolean isUpdated = customerModel.updateCustomer(dto);
+                boolean isUpdated = customerBO.updateCustomer(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Customer is Updated").show();
                     clearFields();
@@ -243,10 +248,10 @@ public class CustomerFormController {
     }
 
     @FXML
-    void btnDeleteCustomerOnAction(ActionEvent event) {
+    void btnDeleteCustomerOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = lblcustId.getText();
         try {
-            boolean isDeleted = customerModel.deleteCustomer(id);
+            boolean isDeleted = customerBO.deleteCustomer(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer Deleted").show();
                 loadAllCustomer();
@@ -264,15 +269,15 @@ public class CustomerFormController {
     }
 
     @FXML
-    void txtCustomerSearchOnAction(ActionEvent event) {
+    void txtCustomerSearchOnAction(ActionEvent event) throws ClassNotFoundException {
         String SearchInput = txtCustomerSearch.getText();
 
         CustomerDto customerDto;
         try {
             if (SearchInput.matches("\\d+")){
-                customerDto = customerModel.searchCustomerByTp(SearchInput);
+                customerDto = customerBO.searchCustomerPhoneNumber(SearchInput);
             }else {
-                customerDto = customerModel.searchCustomer(SearchInput);
+                customerDto = customerBO.searchCustomer(SearchInput);
             }
 
             if (customerDto != null) {
@@ -294,7 +299,7 @@ public class CustomerFormController {
 
     }
     @FXML
-    void btnClearOnAction(ActionEvent event) {
+    void btnClearOnAction(ActionEvent event) throws ClassNotFoundException {
         clearFields();
         generateNextCustomerId();
     }

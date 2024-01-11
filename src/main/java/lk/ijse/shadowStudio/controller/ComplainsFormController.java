@@ -13,11 +13,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javafx.scene.control.Label;
+import lk.ijse.shadowStudio.BO.BOFactory;
+import lk.ijse.shadowStudio.BO.custom.ComplainBO;
+import lk.ijse.shadowStudio.BO.custom.CustomerBO;
+import lk.ijse.shadowStudio.dao.custom.CustomerDAO;
+import lk.ijse.shadowStudio.dao.custom.Impl.CustomerDAOImpl;
 import lk.ijse.shadowStudio.dto.ComplainDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.tm.ComplainTm;
-import lk.ijse.shadowStudio.model.ComplainModel;
-import lk.ijse.shadowStudio.model.CustomerModel;
 import lombok.SneakyThrows;
 
 public class ComplainsFormController {
@@ -55,10 +58,10 @@ public class ComplainsFormController {
     @FXML
     private JFXButton btnClear;
 
-    private final ComplainModel complainModel = new ComplainModel();
-    private CustomerModel customerModel = new CustomerModel();
+    ComplainBO complainBO = (ComplainBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.COMPLAIN);
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
-    public void initialize(){
+    public void initialize() throws ClassNotFoundException {
         clearFields();
         generateNextComplainId();
         loadCustomerIds();
@@ -67,11 +70,11 @@ public class ComplainsFormController {
         tableListener();
     }
 
-    private void loadCustomerIds() {
+    private void loadCustomerIds() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerDto> idList = customerModel.getAllCustomer();
+            List<CustomerDto> idList = customerBO.getAllCustomers();
 
             for (CustomerDto dto : idList) {
                 obList.add(dto.getCust_id());
@@ -83,9 +86,9 @@ public class ComplainsFormController {
         }
     }
 
-    private void generateNextComplainId() {
+    private void generateNextComplainId() throws ClassNotFoundException {
         try {
-            String complainId = ComplainModel.generateNextComplainId();
+            String complainId = complainBO.generateNextComplainID();
             lblComplainsid.setText(complainId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -94,9 +97,9 @@ public class ComplainsFormController {
 
 
     @FXML
-    void btnDeleteComplainOnAction(ActionEvent event) throws SQLException {
+    void btnDeleteComplainOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = lblComplainsid.getText();
-        boolean isDeleted = complainModel.deleteComplain(id);
+        boolean isDeleted = complainBO.deleteComplain(id);
         if (isDeleted) {
             new Alert(Alert.AlertType.CONFIRMATION, "Complain Deleted").show();
             loadAllComplains();
@@ -123,7 +126,7 @@ public class ComplainsFormController {
 
         var dto = new ComplainDto(id, custId, custName, complain);
 
-        boolean isSaved = ComplainModel.saveComplain(dto);
+        boolean isSaved = complainBO.saveComplain(dto);
         if (isSaved){
             new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
             clearFields();
@@ -137,7 +140,7 @@ public class ComplainsFormController {
     }
 
     @FXML
-    void btnUpdateComplainOnAction(ActionEvent event) {
+    void btnUpdateComplainOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = lblComplainsid.getText();
         String custId = cmbCustomerId.getValue();
         String custName = lblCustName.getText();
@@ -145,7 +148,7 @@ public class ComplainsFormController {
 
         var dto = new ComplainDto(id, custId, custName,complain);
         try {
-            boolean isUpdated = ComplainModel.updateCompalin(dto);
+            boolean isUpdated = complainBO.updateComplain(dto);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Complain is Updated").show();
                 clearFields();
@@ -160,8 +163,8 @@ public class ComplainsFormController {
     }
 
     @FXML
-    void btnClearOnAction(ActionEvent event) {
-            clearFields();
+    void btnClearOnAction(ActionEvent event) throws ClassNotFoundException {
+        clearFields();
         generateNextComplainId();
     }
 
@@ -171,11 +174,11 @@ public class ComplainsFormController {
     }
 
     @FXML
-    void cmbCustomerIdOnAction(ActionEvent event) {
+    void cmbCustomerIdOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = cmbCustomerId.getValue();
 
         try {
-            CustomerDto customerDto = customerModel.searchCustomer(id);
+            CustomerDto customerDto = customerBO.searchCustomer(id);
             lblCustName.setText(customerDto.getCust_Name());
 
         } catch (SQLException e) {
@@ -183,11 +186,11 @@ public class ComplainsFormController {
         }
     }
     @FXML
-    void txtSearchComplainOnAction(ActionEvent event) {
+    void txtSearchComplainOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = txtSearchComplain.getText();
         try {
 
-            ComplainDto complainDto = complainModel.searchComplain(id);
+            ComplainDto complainDto = complainBO.searchComplain(id);
 
             if (complainDto != null) {
                 lblComplainsid.setText(complainDto.getComplain_id());
@@ -208,12 +211,10 @@ public class ComplainsFormController {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("aboutComplain"));
     }
 
-    private void loadAllComplains() {
-        var model = new ComplainModel();
-
+    private void loadAllComplains() throws ClassNotFoundException {
         ObservableList<ComplainTm> obList = FXCollections.observableArrayList();
         try {
-            List<ComplainDto> dtoList = model.getAllComplains();
+            List<ComplainDto> dtoList = complainBO.getAllComplains();
 
             for (ComplainDto dto : dtoList) {
                 obList.add(

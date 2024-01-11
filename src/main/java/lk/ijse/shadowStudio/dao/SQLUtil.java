@@ -12,13 +12,13 @@ public class SQLUtil {
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         for (int i = 0; i < ob.length; i++) {
-            pstm.setObject((i+1),ob[i]);
-
+            pstm.setObject((1+i),ob[i]);
         }
-        if (sql.startsWith("SELECT")){
+
+        if (sql.startsWith("SELECT")) {
             return (T) pstm.executeQuery();
-        }else {
-            return (T)(Boolean)(pstm.executeUpdate()>0);
+        } else {
+            return (T)(Boolean) (pstm.executeUpdate() > 0);
         }
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerModel {
-    public static boolean saveCustomer(CustomerDto dto) throws SQLException {
+    public boolean saveCustomer(CustomerDto dto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO customer VALUES(?,?,?,?,?,?)";
@@ -28,7 +28,7 @@ public class CustomerModel {
 
         return isSaved;
     }
-    public static String generateNextCustomerId() throws SQLException {
+    public String generateNextCustomerId() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT cust_id FROM customer ORDER BY cust_id DESC LIMIT 1";
@@ -40,7 +40,7 @@ public class CustomerModel {
         }
         return splitCustomerId(null);
     }
-    private static String splitCustomerId(String currentCustomerId) {
+    private String splitCustomerId(String currentCustomerId) {
         if(currentCustomerId != null) {
             String[] split = currentCustomerId.split("[C]");
 
@@ -52,7 +52,7 @@ public class CustomerModel {
         }
     }
 
-    public static boolean deleteCustomer(String cust_id) throws SQLException {
+    public boolean deleteCustomer(String cust_id) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "delete from customer where cust_id = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
@@ -100,7 +100,7 @@ public class CustomerModel {
         }
         return dtoList;
     }
-    public static CustomerDto searchCustomer(String id) throws SQLException {
+    public CustomerDto searchCustomer(String id) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         String sql = "select * from customer where cust_id=?";
         PreparedStatement pstm = connection.prepareStatement(sql);
