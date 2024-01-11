@@ -29,7 +29,7 @@ public class BOFactory {
             case PACKAGES:
                 return new PackageBOImpl();
             case BOOKINGS:
-                //return new BookingsBOImpl();
+                return new BookingsBOImpl();
             default:
                 return null;
         }

@@ -9,6 +9,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.shadowStudio.BO.BOFactory;
+import lk.ijse.shadowStudio.BO.custom.BookingsBO;
+import lk.ijse.shadowStudio.BO.custom.CustomerBO;
+import lk.ijse.shadowStudio.BO.custom.PackageBO;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.BookingDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
@@ -103,7 +107,13 @@ public class BookingsFormController {
     private final PackagesModel packagesModel = new PackagesModel();
     private CustomerModel customerModel = new CustomerModel();
 
-    public void initialize() {
+    BookingsBO bookingsBO = (BookingsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.BOOKINGS);
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+    PackageBO packageBO = (PackageBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PACKAGES);
+
+
+
+    public void initialize() throws SQLException, ClassNotFoundException {
         generateNextBookingId();
         loadCustomerIds();
         loadPackageIds();
@@ -126,17 +136,19 @@ public class BookingsFormController {
 
     private void generateNextBookingId() {
         try {
-            String bookingId = BookingsModel.generateNextBookingId();
+            String bookingId = bookingsBO.generateNextBookingID();
             lblBookingId.setText(bookingId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
     private void loadCustomerIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerDto> idList = customerModel.getAllCustomer();
+            List<CustomerDto> idList = customerBO.getAllCustomers();
 
             for (CustomerDto dto : idList) {
                 obList.add(dto.getCust_id());
@@ -145,6 +157,8 @@ public class BookingsFormController {
             cmbCustomerId.setItems(obList);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -152,13 +166,15 @@ public class BookingsFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<PackageDto> idList = packagesModel.getAllPackages();
+            List<PackageDto> idList = packageBO.getAllPackage();
 
             for (PackageDto dto : idList) {
                 obList.add(dto.getPackage_id());
             }
             cmbPackageId.setItems(obList);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -167,7 +183,7 @@ public class BookingsFormController {
     void btnDeleteBookingOnAction(ActionEvent event) {
         String id = lblBookingId.getText();
         try {
-            boolean isDeleted = bookingsModel.deleteBooking(id);
+            boolean isDeleted = bookingsBO.deleteBooking(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Booking Deleted Deleted").show();
                 loadAllBookings();
@@ -178,11 +194,13 @@ public class BookingsFormController {
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @FXML
-    void btnSaveBookingOnAction(ActionEvent event) throws SQLException {
+    void btnSaveBookingOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = lblBookingId.getText();
         String custId = cmbCustomerId.getValue();
         String custName = lblCustomerName.getText();
@@ -220,7 +238,7 @@ public class BookingsFormController {
                     payment
             );
 
-            boolean isSaved = BookingsModel.saveBooking(dto);
+            boolean isSaved = bookingsBO.saveBooking(dto);
             if (isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"Complain Added").show();
                 clearFields();
@@ -261,7 +279,7 @@ public class BookingsFormController {
         }else{
             var dto = new BookingDto(bid,custId,custName,packageId,packageName,date,time,location,custIdea,paymemt);
             try {
-                boolean isUpdated = bookingsModel.updateBookings(dto);
+                boolean isUpdated = bookingsBO.updateBooking(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Booking Updated").show();
                     clearFields();
@@ -272,6 +290,8 @@ public class BookingsFormController {
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -283,7 +303,7 @@ public class BookingsFormController {
         String id = txtBookingSearch.getText();
         try {
 
-            BookingDto bookingDto = bookingsModel.searchBookings(id);
+            BookingDto bookingDto = bookingsBO.searchBooking(id);
             if (bookingDto != null) {
                 lblBookingId.setText(bookingDto.getBooking_id());
                 txtBookingSearch.setText(bookingDto.getBooking_id());
@@ -300,6 +320,8 @@ public class BookingsFormController {
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -308,10 +330,12 @@ public class BookingsFormController {
         String id = cmbCustomerId.getValue();
 
         try {
-            CustomerDto customerDto = customerModel.searchCustomer(id);
+            CustomerDto customerDto = customerBO.searchCustomer(id);
             lblCustomerName.setText(customerDto.getCust_Name());
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         cmbPackageId.requestFocus();
@@ -322,9 +346,11 @@ public class BookingsFormController {
         String id = cmbPackageId.getValue();
 
         try {
-            PackageDto packageDto = packagesModel.searchPackage(id);
+            PackageDto packageDto = packageBO.searchPackage(id);
             lblPackageName.setText(packageDto.getPackage_name());
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         bookingDate.requestFocus();
@@ -342,11 +368,11 @@ public class BookingsFormController {
         colPayment.setCellValueFactory(new PropertyValueFactory<>("payment"));
     }
 
-    private void loadAllBookings() {
+    private void loadAllBookings() throws SQLException, ClassNotFoundException {
         var model = new BookingsModel();
 
         ObservableList<BookingTm> obList = FXCollections.observableArrayList();
-        List<BookingDto> dtoList = model.getAllBookings();
+        List<BookingDto> dtoList = bookingsBO.getAllBookings();
 
         for (BookingDto dto : dtoList) {
             obList.add(

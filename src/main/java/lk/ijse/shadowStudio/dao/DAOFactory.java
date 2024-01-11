@@ -31,6 +31,8 @@ public class DAOFactory {
                 return new PackagesDAOImpl();
             case RENT:
                 return new RentDAOImpl();
+            case BOOKINGS:
+                return new BookingsDAOImpl();
             default:
                 return null;
         }
