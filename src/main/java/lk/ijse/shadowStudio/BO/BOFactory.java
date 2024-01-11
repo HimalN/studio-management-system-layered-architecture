@@ -1,9 +1,6 @@
 package lk.ijse.shadowStudio.BO;
 
-import lk.ijse.shadowStudio.BO.custom.Impl.ComplainBOImpl;
-import lk.ijse.shadowStudio.BO.custom.Impl.CustomerBOImpl;
-import lk.ijse.shadowStudio.BO.custom.Impl.EmployeeBOImpl;
-import lk.ijse.shadowStudio.BO.custom.Impl.PackageBOImpl;
+import lk.ijse.shadowStudio.BO.custom.Impl.*;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -26,7 +23,7 @@ public class BOFactory {
             case EMPLOYEE:
                 return new EmployeeBOImpl();
             case RENTITEMS:
-                //return new RentItemBOImpl();
+                return new RentItemBOImpl();
             case RENT:
                 //return new RentBOImpl();
             case PACKAGES:

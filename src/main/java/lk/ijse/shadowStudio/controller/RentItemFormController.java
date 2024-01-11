@@ -9,6 +9,9 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import lk.ijse.shadowStudio.BO.BOFactory;
+import lk.ijse.shadowStudio.BO.custom.CustomerBO;
+import lk.ijse.shadowStudio.BO.custom.RentItemBO;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.ItemDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
@@ -69,8 +72,9 @@ public class RentItemFormController{
     private TableView<ItemTm> tblItem;
 
     private final RentItemModel rentItemModel = new RentItemModel();
+    RentItemBO rentItemBO = (RentItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RENTITEMS);
 
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, ClassNotFoundException {
         generateNextItemId();
         loadAllItem();
         setCellValueFactory();
@@ -78,8 +82,8 @@ public class RentItemFormController{
         setType();
 
     }
-    private void generateNextItemId() throws SQLException {
-        String itemId =RentItemModel.generateNextItemId();
+    private void generateNextItemId() throws SQLException, ClassNotFoundException {
+        String itemId = rentItemBO.generateNextItemID();
         lblItemId.setText(itemId);
     }
     public void clearFields(){
@@ -110,7 +114,7 @@ public class RentItemFormController{
     void btnDeleteItemOnAction(ActionEvent event) {
         String id = lblItemId.getText();
         try {
-            boolean isDeleted = RentItemModel.deleteItem(id);
+            boolean isDeleted = rentItemBO.deleteItem(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Item Deleted").show();
                 loadAllItem();
@@ -124,11 +128,13 @@ public class RentItemFormController{
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @FXML
-    void btnSaveItemOnAction(ActionEvent event) throws SQLException {
+    void btnSaveItemOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String itemId = lblItemId.getText();
         String itemName = txtItemName.getText();
         String itemType = cmbItemType.getValue();
@@ -147,7 +153,7 @@ public class RentItemFormController{
             new Alert(Alert.AlertType.ERROR,"Invalid Item Count").show();
         }else{
             try {
-                boolean isSaved = RentItemModel.saveItem(dto);
+                boolean isSaved = rentItemBO.saveItem(dto);
                 if (isSaved){
                     new Alert(Alert.AlertType.CONFIRMATION,"Item Saved").show();
                     clearFields();
@@ -156,6 +162,8 @@ public class RentItemFormController{
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
             initialize();
         }
@@ -174,7 +182,7 @@ public class RentItemFormController{
 
         ObservableList<ItemTm> obList = FXCollections.observableArrayList();
         try{
-            List<ItemDto> dtoList = model.getAllItem();
+            List<ItemDto> dtoList = rentItemBO.getAllItems();
 
             for (ItemDto dto : dtoList) {
                 obList.add(
@@ -189,6 +197,8 @@ public class RentItemFormController{
             }
             tblItem.setItems(obList);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -213,7 +223,7 @@ public class RentItemFormController{
         }else{
             var dto = new ItemDto(id, name, type, price,qty);
             try {
-                boolean isUpdated = RentItemModel.updateItem(dto);
+                boolean isUpdated = rentItemBO.updateItem(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Item is Updated").show();
                     clearFields();
@@ -224,6 +234,8 @@ public class RentItemFormController{
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -238,6 +250,8 @@ public class RentItemFormController{
             generateNextItemId();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR,"Error While doing Action").show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -246,7 +260,7 @@ public class RentItemFormController{
         String id = txtSearch.getText();
         try {
 
-            ItemDto itemDto = RentItemModel.searchItem(id);
+            ItemDto itemDto = rentItemBO.searchItem(id);
             if (itemDto != null) {
                 lblItemId.setText(itemDto.getItemId());
                 txtItemName.setText(itemDto.getItemName());
@@ -259,6 +273,8 @@ public class RentItemFormController{
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
     private void setType(){
