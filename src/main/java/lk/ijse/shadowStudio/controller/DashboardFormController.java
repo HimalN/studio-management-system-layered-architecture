@@ -87,12 +87,11 @@ public class DashboardFormController {
         Connection connection = null;
         try {
             connection = DbConnection.getInstance().getConnection();
+
             Statement stmt = connection.createStatement();
-            //Query to get the number of rows in a table
             String query = "select count(*) from customer";
-            //Executing the query
+
             ResultSet rs = stmt.executeQuery(query);
-            //Retrieving the result
             rs.next();
             int count = rs.getInt(1);
             lblTotalCustomers.setText(String.valueOf(count));
@@ -106,11 +105,11 @@ public class DashboardFormController {
         try {
             connection = DbConnection.getInstance().getConnection();
             Statement stmt = connection.createStatement();
-            //Query to get the number of rows in a table
+
             String query = "select count(*) from item";
-            //Executing the query
+
             ResultSet rs = stmt.executeQuery(query);
-            //Retrieving the result
+
             rs.next();
             int count = rs.getInt(1);
             lblTotalItems.setText(String.valueOf(count));
@@ -122,11 +121,11 @@ public class DashboardFormController {
     private void countBookings() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         Statement stmt = connection.createStatement();
-        //Query to get the number of rows in a table
+
         String query = "select count(*) from bookings";
-        //Executing the query
+
         ResultSet rs = stmt.executeQuery(query);
-        //Retrieving the result
+
         rs.next();
         int count = rs.getInt(1);
         lblBookings.setText(String.valueOf(count));
@@ -134,20 +133,20 @@ public class DashboardFormController {
     private void countprofit() throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
         Statement stmt = connection.createStatement();
-        //Query to get the number of rows in a table
+
         String query = "SELECT SUM(payment) AS total_sum FROM bookings;";
-        //Executing the query
+
         ResultSet rs = stmt.executeQuery(query);
-        //Retrieving the result
+
         rs.next();
         int count = rs.getInt(1);
 
         Statement stmt1 = connection.createStatement();
-        //Query to get the number of rows in a table
+
         String query1 = "SELECT SUM(price) AS total_sum FROM rent;";
-        //Executing the query
+
         ResultSet rs1 = stmt.executeQuery(query1);
-        //Retrieving the result
+
         rs1.next();
         int countRent = rs1.getInt(1);
 
@@ -159,11 +158,11 @@ public class DashboardFormController {
         try {
             connection = DbConnection.getInstance().getConnection();
             Statement stmt = connection.createStatement();
-            //Query to get the number of rows in a table
+
             String query = "select count(*) from complains";
-            //Executing the query
+
             ResultSet rs = stmt.executeQuery(query);
-            //Retrieving the result
+
             rs.next();
             int count = rs.getInt(1);
             lblComplaims.setText(String.valueOf(count));
@@ -177,11 +176,11 @@ public class DashboardFormController {
         try {
             connection = DbConnection.getInstance().getConnection();
             Statement stmt = connection.createStatement();
-            //Query to get the number of rows in a table
+
             String query = "select count(*) from rent";
-            //Executing the query
+
             ResultSet rs = stmt.executeQuery(query);
-            //Retrieving the result
+
             rs.next();
             int count = rs.getInt(1);
             lblRentedItems.setText(String.valueOf(count));
