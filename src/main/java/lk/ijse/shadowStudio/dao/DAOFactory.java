@@ -14,7 +14,7 @@ public class DAOFactory {
         return (daoFactory == null)?daoFactory=new DAOFactory():daoFactory;
     }
     public enum DAOTypes {
-        COMPLAIN,CUSTOMER,EMPLOYEE, RENTITEMS,RENT
+        COMPLAIN,CUSTOMER,EMPLOYEE, RENTITEMS,RENT,PACKAGES,BOOKINGS
     }
 
     public SuperDAO getDAO (DAOTypes daoTypes) {
@@ -25,12 +25,12 @@ public class DAOFactory {
                 return new CustomerDAOImpl();
             case EMPLOYEE:
                 return new EmployeeDAOImpl();
-            /*case RENTITEMS:
+            case RENTITEMS:
                 return new RentItemDAOImpl();
-*//*            case QUERY:
-                return new JoinQueryDAOImpl();*//*
+            case PACKAGES:
+                return new PackagesDAOImpl();
             case RENT:
-                return new RentDAOImpl();*/
+                return new RentDAOImpl();
             default:
                 return null;
         }

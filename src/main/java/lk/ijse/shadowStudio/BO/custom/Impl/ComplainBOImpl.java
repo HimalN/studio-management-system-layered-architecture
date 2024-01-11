@@ -14,6 +14,7 @@ public class ComplainBOImpl implements ComplainBO {
     ComplainsDAO complainDAO = (ComplainsDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.COMPLAIN);
 
     @Override
+
     public String generateNextComplainID() throws SQLException, ClassNotFoundException {
         return complainDAO.generateNextId();
     }

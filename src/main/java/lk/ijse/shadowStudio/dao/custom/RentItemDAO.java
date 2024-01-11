@@ -1,4 +1,9 @@
 package lk.ijse.shadowStudio.dao.custom;
 
-public interface RentItemDAO {
+import lk.ijse.shadowStudio.Entity.Item;
+import lk.ijse.shadowStudio.dao.CrudDAO;
+
+import javax.sql.rowset.CachedRowSet;
+
+public interface RentItemDAO extends CrudDAO<Item> {
 }

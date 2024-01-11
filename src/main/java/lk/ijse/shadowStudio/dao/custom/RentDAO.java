@@ -1,4 +1,7 @@
 package lk.ijse.shadowStudio.dao.custom;
 
-public interface RentDAO {
+import lk.ijse.shadowStudio.Entity.Rent;
+import lk.ijse.shadowStudio.dao.CrudDAO;
+
+public interface RentDAO extends CrudDAO<Rent> {
 }

@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javafx.scene.control.Label;
+import lk.ijse.shadowStudio.BO.BOFactory;
+import lk.ijse.shadowStudio.BO.custom.CustomerBO;
+import lk.ijse.shadowStudio.BO.custom.PackageBO;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
@@ -72,6 +75,8 @@ public class PackagesFormController{
 
     private final PackagesModel packagesModel = new PackagesModel();
 
+    PackageBO packageBO = (PackageBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PACKAGES);
+
     public void initialize(){
         generateNextPackageId();
         loadAllPackages();
@@ -91,9 +96,9 @@ public class PackagesFormController{
     }
     private void generateNextPackageId() {
         try {
-            String packageId = PackagesModel.generateNextPackageId();
+            String packageId = packageBO.generateNextPackageID();
             lblPackageId.setText(packageId);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
@@ -102,7 +107,7 @@ public class PackagesFormController{
     void btnDeletePackageOnAction(ActionEvent event) {
         String id = lblPackageId.getText();
         try {
-            boolean isDeleted = PackagesModel.deletePackage(id);
+            boolean isDeleted = packageBO.deletePackage(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer Deleted").show();
                 loadAllPackages();
@@ -116,6 +121,8 @@ public class PackagesFormController{
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -143,7 +150,7 @@ public class PackagesFormController{
             var dto = new PackageDto(packageId,packageName,packageType,packageAbout,packagePrice);
 
             try {
-                boolean isSaved = PackagesModel.savePackage(dto);
+                boolean isSaved = packageBO.savePackage(dto);
                 if (isSaved){
                     new Alert(Alert.AlertType.CONFIRMATION,"Package Saved").show();
                     clearFields();
@@ -155,6 +162,8 @@ public class PackagesFormController{
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
 
         }
@@ -172,7 +181,7 @@ public class PackagesFormController{
 
         ObservableList<PackageTm> obList = FXCollections.observableArrayList();
         try {
-            List<PackageDto> dtoList = model.getAllPackages();
+            List<PackageDto> dtoList = packageBO.getAllPackage();
 
             for (PackageDto dto : dtoList) {
                 obList.add(
@@ -188,6 +197,8 @@ public class PackagesFormController{
             tblPackages.setItems(obList);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -231,7 +242,7 @@ public class PackagesFormController{
         }else {
             var dto = new PackageDto(id, name, type, description, price);
             try {
-                boolean isUpdated = PackagesModel.updateCustomer(dto);
+                boolean isUpdated = packageBO.updatePackage(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Package is Updated").show();
                     clearFields();
@@ -242,6 +253,8 @@ public class PackagesFormController{
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -250,7 +263,7 @@ public class PackagesFormController{
         String id = txtPackageSearch.getText();
         try {
 
-            PackageDto packageDto = PackagesModel.searchPackage(id);
+            PackageDto packageDto = packageBO.searchPackage(id);
             if (packageDto != null) {
                 lblPackageId.setText(packageDto.getPackage_id());
                 txtPackageSearch.setText(packageDto.getPackage_id());
@@ -263,6 +276,8 @@ public class PackagesFormController{
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
 
     }

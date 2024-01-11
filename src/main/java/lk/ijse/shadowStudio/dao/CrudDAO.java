@@ -1,5 +1,6 @@
 package lk.ijse.shadowStudio.dao;
 
+import lk.ijse.shadowStudio.Entity.Package;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 
 import java.sql.SQLException;

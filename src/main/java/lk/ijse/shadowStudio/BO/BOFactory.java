@@ -3,6 +3,7 @@ package lk.ijse.shadowStudio.BO;
 import lk.ijse.shadowStudio.BO.custom.Impl.ComplainBOImpl;
 import lk.ijse.shadowStudio.BO.custom.Impl.CustomerBOImpl;
 import lk.ijse.shadowStudio.BO.custom.Impl.EmployeeBOImpl;
+import lk.ijse.shadowStudio.BO.custom.Impl.PackageBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -24,14 +25,14 @@ public class BOFactory {
                 return new CustomerBOImpl();
             case EMPLOYEE:
                 return new EmployeeBOImpl();
-            /*case ITEMS:
-                return new ItemBOImpl();
-            case ORDER:
-                return new OrderBOImpl();
-            case PRODUCTS:
-                return new ProductsBOImpl();
-            case SUPPLIERS:
-                return new SuppliersBOImpl();*/
+            case RENTITEMS:
+                //return new RentItemBOImpl();
+            case RENT:
+                //return new RentBOImpl();
+            case PACKAGES:
+                return new PackageBOImpl();
+            case BOOKINGS:
+                //return new BookingsBOImpl();
             default:
                 return null;
         }
