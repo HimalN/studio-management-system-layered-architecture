@@ -10,6 +10,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.shadowStudio.BO.BOFactory;
+import lk.ijse.shadowStudio.BO.custom.LoginBO;
+import lk.ijse.shadowStudio.dao.DAOFactory;
+import lk.ijse.shadowStudio.dao.custom.LoginDAO;
 import lk.ijse.shadowStudio.db.DbConnection;
 
 import java.io.IOException;
@@ -32,38 +36,27 @@ public class LoginFormController {
     @FXML
     private AnchorPane rootNode;
 
-
+    LoginBO loginBO = (LoginBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LOGIN);
     @FXML
     void btnLoginOmAction(ActionEvent event) throws IOException, SQLException {
         String userName = txtUserName.getText();
         String password = txtPassword.getText();
 
-        Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM user WHERE use_name = ? AND password = ?";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, userName);
-            preparedStatement.setString(2, password);
+        boolean login = loginBO.login(userName, password);
+        if(userName.isEmpty() || password.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR,"Empty").show();
+            return;
+        }
+        if (login) {
+            Parent rootNode = FXMLLoader.load(this.getClass().getResource("/views/main_form.fxml"));
+            Scene scene =new Scene(rootNode);
+            Stage stage = (Stage) this.rootNode.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Shadow Studio");
+            stage.centerOnScreen();
 
-            if(userName.isEmpty() || password.isEmpty()) {
-                new Alert(Alert.AlertType.ERROR,"Empty").show();
-                return;
-            }
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                Parent rootNode = FXMLLoader.load(this.getClass().getResource("/views/main_form.fxml"));
-                Scene scene =new Scene(rootNode);
-                Stage stage = (Stage) this.rootNode.getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Shadow Studio");
-                stage.centerOnScreen();
-
-            } else {
-                new Alert(Alert.AlertType.ERROR, "oops! credentials are wrong!").show();
-
-            }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage());
+        } else {
+            new Alert(Alert.AlertType.ERROR, "oops! credentials are wrong!").show();
 
         }
         DashboardFormController.staticLabel.setText(txtUserName.getText()+" !");

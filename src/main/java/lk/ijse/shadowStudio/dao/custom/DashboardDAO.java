@@ -1,12 +1,16 @@
 package lk.ijse.shadowStudio.dao.custom;
 
-public interface DashboardDAO {
-    void countCustomer();
-    void countItems();
-    void countBookings();
+import lk.ijse.shadowStudio.dao.SuperDAO;
+
+import java.sql.SQLException;
+
+public interface DashboardDAO extends SuperDAO {
+    int countCustomer() throws SQLException;
+    int countItems() throws SQLException;
+    int countBookings() throws SQLException;
     void countprofit();
-    void countComplains();
-    void countRentItems();
+    int countComplains() throws SQLException;
+    int countRentItems() throws SQLException;
 
 
 }

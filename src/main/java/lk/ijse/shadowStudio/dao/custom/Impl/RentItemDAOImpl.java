@@ -2,11 +2,13 @@ package lk.ijse.shadowStudio.dao.custom.Impl;
 
 import lk.ijse.shadowStudio.Entity.Complain;
 import lk.ijse.shadowStudio.Entity.Item;
+import lk.ijse.shadowStudio.Entity.Rent;
 import lk.ijse.shadowStudio.dao.SQLUtil;
 import lk.ijse.shadowStudio.dao.custom.RentItemDAO;
+import lk.ijse.shadowStudio.db.DbConnection;
+import lk.ijse.shadowStudio.dto.RentDto;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,5 +97,21 @@ public class RentItemDAOImpl implements RentItemDAO {
             dto = new Item(itemId,itemName,itemType,rentalPrice,qty);
         }
         return dto;
+    }
+    public boolean updateItem(String itemId, int qty) throws SQLException {
+        return SQLUtil.execute("UPDATE item SET qty = qty - ? WHERE itemId = ?",qty,itemId);
+    }
+    public boolean updateRent(Rent dto) throws SQLException {
+        return SQLUtil.execute("UPDATE rent SET cust_id = ?,cust_name = ?,itemId = ?,item_name = ?,dayCount = ?,Date = ?,qty = ? WHERE rentId = ?",
+                dto.getCustId(),
+                dto.getCustName(),
+                dto.getItemId(),
+                dto.getItemName(),
+                dto.getDaycount(),
+                dto.getDate(),
+                dto.getQty(),
+                dto.getPrice(),
+                dto.getRentId()
+        );
     }
 }

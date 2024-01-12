@@ -1,44 +1,62 @@
 package lk.ijse.shadowStudio.dao.custom.Impl;
 
 import lk.ijse.shadowStudio.Entity.Rent;
+import lk.ijse.shadowStudio.dao.SQLUtil;
 import lk.ijse.shadowStudio.dao.custom.RentDAO;
+import lk.ijse.shadowStudio.dto.RentDto;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RentDAOImpl implements RentDAO {
-    @Override
-    public boolean save(Rent dto) throws SQLException {
-        return false;
+    public String generateNextRentId() throws SQLException {
+        ResultSet resultSet = SQLUtil.execute("SELECT rentId FROM rent ORDER BY rentId DESC LIMIT 1");
+        if(resultSet.next()) {
+            return splitRentId(resultSet.getString(1));
+        }
+        return splitRentId(null);
+    }
+    public String splitRentId(String currentRentId) {
+        if(currentRentId != null) {
+            String[] split = currentRentId.split("[R]");
+
+            int id = Integer.parseInt(split[1]); //01
+            id++;
+            return String.format("R%03d",id);
+        } else {
+            return "R001";
+        }
     }
 
-    @Override
-    public String generateNextId() throws SQLException {
-        return null;
+    public List<Rent> getAllRent() throws SQLException {
+        ResultSet rs = SQLUtil.execute("SELECT * from rent");
+        ArrayList<Rent> dtoList = new ArrayList<>();
+        while (rs.next()) {
+            dtoList.add(
+                    new Rent(
+                            rs.getString(1),
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7),
+                            rs.getInt(8),
+                            rs.getString(9)
+                    )
+            );
+        }
+        return dtoList;
     }
 
-    @Override
-    public String splitId(String currentId) throws SQLException {
-        return null;
+    public boolean deleteRent(String id) throws SQLException {
+        return SQLUtil.execute("delete from rent where rentId = ?", id);
     }
 
-    @Override
-    public boolean delete(String id) throws SQLException {
-        return false;
-    }
 
-    @Override
-    public boolean update(Rent dto) throws SQLException {
-        return false;
-    }
-
-    @Override
-    public List<Rent> getAll() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public Rent search(String id) throws SQLException {
-        return null;
+    public boolean saveRent(String rentId, String custId, String custName, String itemId, String itemName, String daycount, String date, int qty, String price) throws SQLException {
+        return SQLUtil.execute("INSERT INTO rent VALUES(?,?,?,?,?,?,?,?,?)", rentId, custId, custName, itemId, itemName, daycount, date, qty, price);
     }
 }

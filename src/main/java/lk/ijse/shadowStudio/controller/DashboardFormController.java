@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.shadowStudio.dao.DAOFactory;
+import lk.ijse.shadowStudio.dao.custom.DashboardDAO;
 import lk.ijse.shadowStudio.db.DbConnection;
 import lk.ijse.shadowStudio.dto.SignUpDto;
 
@@ -59,6 +61,7 @@ public class DashboardFormController {
     @FXML
     static Label staticLabel;
 
+    DashboardDAO dashboardDAO = (DashboardDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.DASHBOARD);
     public void initialize() throws SQLException {
         setTime();
         countCustomer();
@@ -86,14 +89,7 @@ public class DashboardFormController {
     private void countCustomer()  {
         Connection connection = null;
         try {
-            connection = DbConnection.getInstance().getConnection();
-
-            Statement stmt = connection.createStatement();
-            String query = "select count(*) from customer";
-
-            ResultSet rs = stmt.executeQuery(query);
-            rs.next();
-            int count = rs.getInt(1);
+            int count = dashboardDAO.countCustomer();
             lblTotalCustomers.setText(String.valueOf(count));
         } catch (SQLException e) {
             throw new RuntimeException(e);

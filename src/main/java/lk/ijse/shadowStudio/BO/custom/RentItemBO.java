@@ -2,6 +2,7 @@ package lk.ijse.shadowStudio.BO.custom;
 
 import lk.ijse.shadowStudio.BO.SuperBO;
 import lk.ijse.shadowStudio.dto.ItemDto;
+import lk.ijse.shadowStudio.dto.RentDto;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -18,4 +19,6 @@ public interface RentItemBO extends SuperBO {
     boolean deleteItem(String id) throws SQLException, ClassNotFoundException;
 
     List<ItemDto> getAllItems() throws SQLException, ClassNotFoundException;
+
+    boolean updateRent(RentDto dto) throws SQLException;
 }

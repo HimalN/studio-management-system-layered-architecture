@@ -14,14 +14,10 @@ import java.util.List;
 
 import javafx.scene.control.Label;
 import lk.ijse.shadowStudio.BO.BOFactory;
-import lk.ijse.shadowStudio.BO.custom.CustomerBO;
 import lk.ijse.shadowStudio.BO.custom.PackageBO;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
-import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
-import lk.ijse.shadowStudio.dto.tm.CustomerTm;
 import lk.ijse.shadowStudio.dto.tm.PackageTm;
-import lk.ijse.shadowStudio.model.PackagesModel;
 
 public class PackagesFormController{
 
@@ -73,7 +69,7 @@ public class PackagesFormController{
     @FXML
     private TextField txtPackageSearch;
 
-    private final PackagesModel packagesModel = new PackagesModel();
+    //private final PackagesModel packagesModel = new PackagesModel();
 
     PackageBO packageBO = (PackageBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PACKAGES);
 
@@ -177,7 +173,7 @@ public class PackagesFormController{
         colPackagePrice.setCellValueFactory(new PropertyValueFactory<>("package_price"));
     }
     private void loadAllPackages() {
-        var model = new PackagesModel();
+
 
         ObservableList<PackageTm> obList = FXCollections.observableArrayList();
         try {

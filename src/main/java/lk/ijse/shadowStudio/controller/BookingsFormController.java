@@ -18,9 +18,6 @@ import lk.ijse.shadowStudio.dto.BookingDto;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.PackageDto;
 import lk.ijse.shadowStudio.dto.tm.BookingTm;
-import lk.ijse.shadowStudio.model.BookingsModel;
-import lk.ijse.shadowStudio.model.CustomerModel;
-import lk.ijse.shadowStudio.model.PackagesModel;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -103,9 +100,6 @@ public class BookingsFormController {
     @FXML
     private TextField txtBookingSearch;
 
-    private final BookingsModel bookingsModel = new BookingsModel();
-    private final PackagesModel packagesModel = new PackagesModel();
-    private CustomerModel customerModel = new CustomerModel();
 
     BookingsBO bookingsBO = (BookingsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.BOOKINGS);
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
@@ -369,7 +363,6 @@ public class BookingsFormController {
     }
 
     private void loadAllBookings() throws SQLException, ClassNotFoundException {
-        var model = new BookingsModel();
 
         ObservableList<BookingTm> obList = FXCollections.observableArrayList();
         List<BookingDto> dtoList = bookingsBO.getAllBookings();

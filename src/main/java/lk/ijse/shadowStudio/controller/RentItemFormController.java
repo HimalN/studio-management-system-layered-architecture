@@ -8,16 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import lk.ijse.shadowStudio.BO.BOFactory;
-import lk.ijse.shadowStudio.BO.custom.CustomerBO;
 import lk.ijse.shadowStudio.BO.custom.RentItemBO;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.ItemDto;
-import lk.ijse.shadowStudio.dto.PackageDto;
 import lk.ijse.shadowStudio.dto.tm.ItemTm;
-import lk.ijse.shadowStudio.model.PackagesModel;
-import lk.ijse.shadowStudio.model.RentItemModel;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -71,7 +66,6 @@ public class RentItemFormController{
     @FXML
     private TableView<ItemTm> tblItem;
 
-    private final RentItemModel rentItemModel = new RentItemModel();
     RentItemBO rentItemBO = (RentItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RENTITEMS);
 
     public void initialize() throws SQLException, ClassNotFoundException {
@@ -178,7 +172,6 @@ public class RentItemFormController{
 
 
     private void loadAllItem() {
-        var model = new RentItemModel();
 
         ObservableList<ItemTm> obList = FXCollections.observableArrayList();
         try{

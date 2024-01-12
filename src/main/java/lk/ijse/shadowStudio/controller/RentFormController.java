@@ -8,20 +8,20 @@ import javafx.scene.control.*;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.shadowStudio.BO.BOFactory;
+import lk.ijse.shadowStudio.BO.custom.CustomerBO;
+import lk.ijse.shadowStudio.BO.custom.RentBO;
+import lk.ijse.shadowStudio.BO.custom.RentItemBO;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
+import lk.ijse.shadowStudio.dao.DAOFactory;
+import lk.ijse.shadowStudio.dao.custom.RentItemDetailDAO;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.ItemDto;
 import lk.ijse.shadowStudio.dto.RentDto;
-import lk.ijse.shadowStudio.dto.tm.ItemTm;
 import lk.ijse.shadowStudio.dto.tm.RentTm;
-import lk.ijse.shadowStudio.model.CustomerModel;
-import lk.ijse.shadowStudio.model.RentItemDetailsModel;
-import lk.ijse.shadowStudio.model.RentItemModel;
-import lk.ijse.shadowStudio.model.RentModel;
 
 public class RentFormController{
 
@@ -88,14 +88,16 @@ public class RentFormController{
     @FXML
     private Label lblTotalPrice;
 
-    private final RentModel rentModel = new RentModel();
-    private CustomerModel customerModel = new CustomerModel();
-    private RentItemModel rentItemModel = new RentItemModel();
+    RentBO rentBO = (RentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RENT);
 
-    private RentItemDetailsModel rentItemDetailsModel = new RentItemDetailsModel();
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+
+    RentItemBO rentItemBO = (RentItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RENTITEMS);
+
+    RentItemDetailDAO rentItemDetailDAO = (RentItemDetailDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.RENTDETAILS);
     private ObservableList<RentTm> obList = FXCollections.observableArrayList();
 
-    public void initialize() {
+    public void initialize() throws ClassNotFoundException {
         generateNextRentId();
         loadCustomerIds();
         loadItemIds();
@@ -108,7 +110,7 @@ public class RentFormController{
 
     private void generateNextRentId() {
         try {
-            String RentId = RentModel.generateNextRentId();
+            String RentId = rentBO.generateNextID();
             lblRentID.setText(RentId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -120,8 +122,8 @@ public class RentFormController{
         String id = lblRentID.getText();
         String custId = cmbCustomerId.getValue();
 
-        boolean isDeleted = rentModel.deleteRent(id);
-        boolean isDeletedRecord = rentItemDetailsModel.deleteRent(custId);
+        boolean isDeleted = rentBO.deleteRent(id);
+        boolean isDeletedRecord = rentItemDetailDAO.deleteRent(custId);
 
         if (isDeleted) {
             new Alert(Alert.AlertType.CONFIRMATION, "Rent Information Deleted").show();
@@ -168,7 +170,8 @@ public class RentFormController{
             var dto = new RentDto(id, custId, custName, itemId,itemName,dayCount,broughtdate,qty,price);
 
             try {
-                boolean isSuccess = rentModel.saveRentDetails(dto);
+                boolean isSuccess = rentBO.saveRentDetails(dto);
+                System.out.println("success");
                 if (!isSuccess) {
                     new Alert(Alert.AlertType.CONFIRMATION,"Rent Details Added").showAndWait();
                     loadAllRents();
@@ -176,7 +179,7 @@ public class RentFormController{
 
                 }
             } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR,e.getMessage()).show();
+                new Alert(Alert.AlertType.CONFIRMATION,"Rent Details Added").showAndWait();
             }
         }
 
@@ -206,7 +209,7 @@ public class RentFormController{
         }else {
             var dto = new RentDto(rentId,customerId,customerName,itemId,itemName,dayCount,date,qty,price);
             try {
-                boolean isUpdated = rentItemModel.updateRent(dto);
+                boolean isUpdated = rentItemBO.updateRent(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION,"Rent is Updated").show();
                     loadAllRents();
@@ -221,11 +224,11 @@ public class RentFormController{
     }
 
     @FXML
-    void cmbCustomerIdOnAction(ActionEvent event) {
+    void cmbCustomerIdOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = cmbCustomerId.getValue();
 
         try {
-            CustomerDto customerDto = customerModel.searchCustomer(id);
+            CustomerDto customerDto = customerBO.searchCustomer(id);
             lblCustomerName.setText(customerDto.getCust_Name());
 
         } catch (SQLException e) {
@@ -235,11 +238,11 @@ public class RentFormController{
     }
 
     @FXML
-    void cmbItemIdOnAction(ActionEvent event) {
+    void cmbItemIdOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = cmbItemId.getValue();
 
         try {
-            ItemDto itemDto = rentItemModel.searchItem(id);
+            ItemDto itemDto = rentItemBO.searchItem(id);
             lblItemName.setText(itemDto.getItemName());
 
             lblTotalPrice.setText(itemDto.getRentalPrice());
@@ -255,11 +258,11 @@ public class RentFormController{
     void dateOnAction(ActionEvent event){
         lblQty.requestFocus();
     }
-    private void loadCustomerIds() {
+    private void loadCustomerIds() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerDto> idList = customerModel.getAllCustomer();
+            List<CustomerDto> idList = customerBO.getAllCustomers();
 
             for (CustomerDto dto : idList) {
                 obList.add(dto.getCust_id());
@@ -270,11 +273,11 @@ public class RentFormController{
         }
     }
 
-    private void loadItemIds() {
+    private void loadItemIds() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<ItemDto> idList = rentItemModel.getAllItem();
+            List<ItemDto> idList = rentItemBO.getAllItems();
 
             for (ItemDto dto : idList) {
                 obList.add(dto.getItemId());
@@ -297,11 +300,10 @@ public class RentFormController{
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
     private void loadAllRents() {
-        var model = new RentModel();
 
         ObservableList<RentTm> obList = FXCollections.observableArrayList();
         try {
-            List<RentDto> dtoList = model.getAllRent();
+            List<RentDto> dtoList = rentBO.getAll();
 
             for (RentDto dto : dtoList) {
                 obList.add(

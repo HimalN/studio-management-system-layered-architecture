@@ -12,10 +12,12 @@ public class BOFactory {
     }
 
     public enum BOTypes {
-        COMPLAIN,CUSTOMER,EMPLOYEE,RENTITEMS,RENT,PACKAGES,BOOKINGS;
+        LOGIN, COMPLAIN,CUSTOMER,EMPLOYEE,RENTITEMS,RENT,PACKAGES,BOOKINGS;
     }
     public SuperBO getBO(BOTypes boTypes) {
         switch (boTypes) {
+            case LOGIN:
+                return new LoginBOImpl();
             case COMPLAIN:
                 return new ComplainBOImpl();
             case CUSTOMER:
@@ -25,7 +27,7 @@ public class BOFactory {
             case RENTITEMS:
                 return new RentItemBOImpl();
             case RENT:
-                //return new RentBOImpl();
+                return new RentBOImpl();
             case PACKAGES:
                 return new PackageBOImpl();
             case BOOKINGS:

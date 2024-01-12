@@ -14,13 +14,10 @@ import java.util.List;
 
 import javafx.scene.control.Label;
 import lk.ijse.shadowStudio.BO.BOFactory;
-import lk.ijse.shadowStudio.BO.custom.ComplainBO;
-import lk.ijse.shadowStudio.BO.custom.CustomerBO;
 import lk.ijse.shadowStudio.BO.custom.EmployeeBO;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
 import lk.ijse.shadowStudio.dto.EmployeeDto;
 import lk.ijse.shadowStudio.dto.tm.EmployeeTm;
-import lk.ijse.shadowStudio.model.EmployeeModel;
 
 public class EmployeeFormController{
 
@@ -66,7 +63,7 @@ public class EmployeeFormController{
     @FXML
     private TableView<EmployeeTm> tblEmployee;
 
-    private final EmployeeModel employeeModel = new EmployeeModel();
+    //private final EmployeeModel employeeModel = new EmployeeModel();
     EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
 
     public void initialize() throws ClassNotFoundException, SQLException {

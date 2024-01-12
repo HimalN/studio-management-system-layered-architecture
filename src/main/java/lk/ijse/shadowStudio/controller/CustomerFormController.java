@@ -11,12 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import lk.ijse.shadowStudio.BO.BOFactory;
 import lk.ijse.shadowStudio.BO.custom.CustomerBO;
 import lk.ijse.shadowStudio.RegExPatterns.RegExPatterns;
-import lk.ijse.shadowStudio.dao.DAOFactory;
-import lk.ijse.shadowStudio.dao.custom.CustomerDAO;
-import lk.ijse.shadowStudio.dao.custom.Impl.CustomerDAOImpl;
 import lk.ijse.shadowStudio.dto.CustomerDto;
 import lk.ijse.shadowStudio.dto.tm.CustomerTm;
-import lk.ijse.shadowStudio.model.CustomerModel;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -94,12 +90,12 @@ public class CustomerFormController {
     }
 
 
-    private void loadAllCustomer() {
-        var model = new CustomerModel();
+    private void loadAllCustomer() throws ClassNotFoundException {
+        //var model = new CustomerModel();
 
         ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
         try {
-            List<CustomerDto> dtoList = model.getAllCustomer();
+            List<CustomerDto> dtoList = customerBO.getAllCustomers();
 
             for (CustomerDto dto : dtoList) {
                 obList.add(
