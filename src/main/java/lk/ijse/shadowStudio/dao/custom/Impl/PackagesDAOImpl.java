@@ -50,12 +50,12 @@ public class PackagesDAOImpl implements PackagesDAO {
 
     @Override
     public boolean update(Package dto) throws SQLException {
-        return SQLUtil.execute("UPDATE packages SET package_id = ?, package_name = ?, package_type = ?, package_description, package_price WHERE package_id = ?",
-                dto.getPackage_id(),
+        return SQLUtil.execute("UPDATE packages SET package_name = ?, package_type = ?, package_description = ? , package_price = ? WHERE package_id = ?",
                 dto.getPackage_name(),
                 dto.getPackage_type(),
                 dto.getPackage_description(),
-                dto.getPackage_price()
+                dto.getPackage_price(),
+                dto.getPackage_id()
         );
     }
 

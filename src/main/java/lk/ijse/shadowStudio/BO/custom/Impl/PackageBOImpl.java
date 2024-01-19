@@ -40,7 +40,15 @@ public class PackageBOImpl implements PackageBO {
 
     @Override
     public boolean updatePackage(PackageDto dto) throws SQLException, ClassNotFoundException {
-        return packagesDAO.update(new Package(dto.getPackage_id(),dto.getPackage_name(),dto.getPackage_type(), dto.getPackage_description(),dto.getPackage_price()));
+        return packagesDAO.update(
+                new Package(
+                        dto.getPackage_id(),
+                        dto.getPackage_name(),
+                        dto.getPackage_type(),
+                        dto.getPackage_description(),
+                        dto.getPackage_price()
+                )
+        );
     }
 
     @Override

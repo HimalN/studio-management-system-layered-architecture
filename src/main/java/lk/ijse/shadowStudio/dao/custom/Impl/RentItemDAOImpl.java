@@ -53,12 +53,12 @@ public class RentItemDAOImpl implements RentItemDAO {
 
     @Override
     public boolean update(Item dto) throws SQLException {
-        return SQLUtil.execute("UPDATE item SET item_id = ?, item_name = ?, item_type = ? WHERE item_id = ?",
-                dto.getItemId(),
+        return SQLUtil.execute("UPDATE item SET itemName = ?, itemType = ?, rentalPrice = ?, qty = ? WHERE itemId = ?",
                 dto.getItemName(),
                 dto.getItemType(),
                 dto.getRentalPrice(),
-                dto.getQty()
+                dto.getQty(),
+                dto.getItemId()
         );
     }
 

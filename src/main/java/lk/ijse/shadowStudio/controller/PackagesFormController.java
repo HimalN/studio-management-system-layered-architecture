@@ -69,8 +69,6 @@ public class PackagesFormController{
     @FXML
     private TextField txtPackageSearch;
 
-    //private final PackagesModel packagesModel = new PackagesModel();
-
     PackageBO packageBO = (PackageBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PACKAGES);
 
     public void initialize(){
@@ -245,6 +243,9 @@ public class PackagesFormController{
                     generateNextPackageId();
                     loadAllPackages();
                 } else {
+                    clearFields();
+                    generateNextPackageId();
+                    loadAllPackages();
                     new Alert(Alert.AlertType.ERROR, "Package is Not Updated").show();
                 }
             } catch (SQLException e) {
