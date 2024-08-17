@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class RegExPatterns {
     @Getter
-    public static final Pattern validName = Pattern.compile("\\b[A-Z][a-z]*( [A-Z][a-z]*)*\\b");
+    public static final Pattern validName = Pattern.compile("[A-Za-z0-9\\s]+");
     @Getter
     public static final Pattern validPassword = Pattern.compile("(.*?[0-9]){4,}");
     @Getter

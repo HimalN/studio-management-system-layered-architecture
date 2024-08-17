@@ -18,5 +18,4 @@ public class SignUpModel {
 
         return pstm.executeUpdate() > 0;
     }
-
 }

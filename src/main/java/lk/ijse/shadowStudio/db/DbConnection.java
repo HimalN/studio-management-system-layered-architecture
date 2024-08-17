@@ -11,7 +11,7 @@ public class DbConnection {
         connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/shadow_studio",
                 "uroot",
-                "Ijse@1234"
+                "ijse1234"
         );
     }
     public static DbConnection getInstance() throws SQLException {
